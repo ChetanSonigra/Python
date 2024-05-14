@@ -38,17 +38,48 @@ class Book:
         self.author = author
         self.price = price
 
+    def __contains__(self,something):
+        return something.lower() in self.title.lower()
+    
+    def __enter__(self):
+        self.open = True
+        self._discount = 0.5
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._discount = 0.1
+        self.open = False
+
+    def __del__(self):
+        print(f"{self.title} is deleted.")
+
 b1 = Book('ABC','Auth',40.0)
+b2 = Book('ABC2','Auth2',50.0)
 print(b1.price,b1)
 b1.price = 50.0
 print(b1.price,b1)
 print(b1.raflk)
-
+print('ABC' in b1)
 
 # callable object: __call__ function override
 print(b1)
 b1('A',"B",50.0)
 print(b1)
+
+del b2
+
+
+print(b1.price, b1.open)
+
+with b1 as b:
+    print(b1.price, b1.open)
+
+print(b1.price, b1.open)
+
+# __enter__ , __exit__ for deciding actions in with statement.
+# __setitem__, __getitem__ for indexing and item assignment.
+# __del__ destructor.
+# __iter__ , __next__ for iterating over objects
+# __contains__ to check if item is present in object.
 
 
 
