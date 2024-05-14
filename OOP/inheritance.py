@@ -67,7 +67,8 @@ a = A()
 b = B()
 c = C()
 print(c.a, c.b) # c object has no attribute b, because it follows MRO(method resolution order)
-print(C.mro(), C.__mro__)
+print(C.mro())  # [<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>]
+print(C.__mro__) # as a tuple
 
 # MRO:
 """In Python, every class whether built-in or user-defined is derived from the object class and all the objects are instances of the class object. 
@@ -94,5 +95,36 @@ class Class4(Class2, Class3):
         print("In Class4")  
         super().m()
       
-obj = Class4()
-obj.m()
+print(Class4.__mro__)   # (<class '__main__.Class4'>, <class '__main__.Class2'>, 
+                        #  <class '__main__.Class3'>, <class '__main__.Class1'>, 
+                        #  <class 'object'>)
+
+class c1: 
+    pass
+class c2(c1): 
+    pass
+class c3(c1): 
+    pass
+class c4(c2): 
+    pass
+class c5(c3): 
+    pass
+class c6(c4,c5): 
+    pass
+
+print(c6.mro())
+
+class c1: 
+    pass
+class c2: 
+    pass
+class c3: 
+    pass
+class c4(c2): 
+    pass
+class c5(c3): 
+    pass
+class c6(c4,c5): 
+    pass
+
+print(c6.mro())
